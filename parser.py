@@ -17,6 +17,6 @@ def description(url):
         param = i.find('script').text
         print(param)
         
-
+        
 if __name__=="__main__":
     description('https://www.wildberries.ru/catalog/19257508/detail.aspx?targetUrl=XS')
