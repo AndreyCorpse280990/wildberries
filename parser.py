@@ -1,4 +1,5 @@
 import requests
+import json
 from bs4 import BeautifulSoup
 
 url = 'https://www.wildberries.ru/catalog/19257508/detail.aspx?targetUrl=XS'
@@ -19,6 +20,8 @@ def description(url):
         b = param.rfind('}')
         param = param[a:b+1]
         print(param)
+        json_param = json.loads(param)
+        print(json_param)
  
         
 if __name__=="__main__":
