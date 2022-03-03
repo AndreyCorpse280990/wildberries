@@ -15,8 +15,11 @@ def description(url):
     for i in parameters:
         param = {}
         param = i.find('script').text
+        a = param.find('{')
+        b = param.rfind('}')
+        param = param[a:b+1]
         print(param)
-        
+ 
         
 if __name__=="__main__":
     description('https://www.wildberries.ru/catalog/19257508/detail.aspx?targetUrl=XS')
