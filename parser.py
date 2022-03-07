@@ -17,9 +17,11 @@ def description(url):
     
 def get_information(html):
     soup = BeautifulSoup(html, 'lxml')
-    info = soup.find('div', {'id': 'app'}).find(id)
-    app = info.find('meta', {'itemprop': 'name'}) # тут незаконченный вопрос с name
-    print(app)
+    name = soup.find(itemprop="name").get("content")
+    price = soup.find(itemprop="price").get('content')
+    article = soup.find(id="productNmId").text
+    inform = [name, price, article]
+    return(inform)
     
     
 def main(url):
