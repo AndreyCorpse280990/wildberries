@@ -20,3 +20,4 @@ def seach_similar(url):
     
 if __name__=="__main__":
     seach_similar('https://www.wildberries.ru/catalog/19257508/detail.aspx?targetUrl=XS')
+    
