@@ -1,8 +1,6 @@
 import bs4
 import requests
-import json
 import logging
-import html5lib
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('wb')
