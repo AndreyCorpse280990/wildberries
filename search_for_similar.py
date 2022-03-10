@@ -1,23 +1,43 @@
+import bs4
 import requests
 import json
-from bs4 import BeautifulSoup
+import logging
+import html5lib
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('wb')
 
-url = 'https://www.wildberries.ru/catalog/19257508/detail.aspx?targetUrl=XS'
-
-def seach_similar(url):
-    try:
-        responce = requests.get(url)
-        print(responce.status_code)
-    except(requests.RecursionError, ConnectionResetError, requests.RequestException):
-            print('Ошибка сети')
-            return False
-    soup = BeautifulSoup(responce.text, 'lxml')
-    similar = soup.find_all('a', class_='mix-block__find-similar j-wba-card-item')
-    print(similar)
-    a = json.loads(similar)
+class Client:
     
+    def __init__(self):
+      self.session = requests.Session()
+      self.session.headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko)\
+            Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.31',
+        'Assept-Language': 'ru',     
+      }
+    def load_page(self):
+        url = 'https://www.wildberries.ru/catalog/zhenshchinam/odezhda/verhnyaya-odezhda'
+        result = self.session.get(url=url)
+        result.raise_for_status()
+        return result.text
     
+    def parge_page(self, text: str):
+        soup = bs4.BeautifulSoup(text, 'lxml')
+        product_card = soup.select('div.product-card.j-card-item')
+        for block in product_card:
+            self.parse_block(block=block)
+            
+    def parse_block(self, block):
+        logger.info(block)
+        logger.info('=' * 100)
+        
+    def run(self):
+        text = self.load_page()
+        self.parge_page(text=text)
+        
 if __name__=="__main__":
-    seach_similar('https://www.wildberries.ru/catalog/19257508/detail.aspx?targetUrl=XS')
-    
+    parser = Client()
+    parser.run()
+
+
