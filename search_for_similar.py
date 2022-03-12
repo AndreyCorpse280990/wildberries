@@ -15,7 +15,7 @@ class Client:
         'Assept-Language': 'ru',     
       }
     def load_page(self):
-        url = 'https://www.wildberries.ru/catalog/zhenshchinam/odezhda/verhnyaya-odezhda'
+        url = 'https://www.wildberries.ru/catalog/0/search.aspx?sort=popular&search=yaselisa'
         result = self.session.get(url=url)
         result.raise_for_status()
         return result.text
