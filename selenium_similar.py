@@ -16,10 +16,10 @@ def get_html(url):
                                         ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
         driver = webdriver.Chrome(options=options,
-                                  executable_path=r"chromedriver\chromedriver.exe")
+                                  executable_path=r"chromedriver\\"
+                                                  r"\chromedriver.exe")
 
         # client settings
-
         stealth(driver,
                 languages=["en-US", "en"],
                 vendor="Google Inc.",
@@ -32,8 +32,6 @@ def get_html(url):
         time.sleep(2)
         html = driver.find_element_by_class_name('nav-element__logo')
 
-
-
         while True:
             html.send_keys(Keys.END)
             time.sleep(3)
@@ -43,17 +41,17 @@ def get_html(url):
             soup = bs4.BeautifulSoup(product_card.get_attribute('innerHTML'),
                                      'lxml')
 
-            # getting the text of products and prices
+            # getting the text of products and price
             find_price = soup.select('.lower-price')
             lower_price = ([price.get_text().strip() for price in find_price])
-            
+
             find_name = soup.select('.goods-name')
             goods_name = ([name.get_text() for name in find_name])
-            
-            #for n, p in zip(goods_name, lower_price):
-                #print(n)
-                #print(p)
-                
+
+            # for n, p in zip(goods_name, lower_price):
+            # print(n)
+            # print(p)
+
             path_name = 'name.csv'
             with open(path_name, 'w', encoding='utf-8') as file_name:
                 writer_name = csv.writer(file_name, delimiter=':')
@@ -63,10 +61,10 @@ def get_html(url):
             with open(path_price, 'w', encoding='utf-8') as file_price:
                 writer_price = csv.writer(file_price, delimiter=';')
                 writer_price.writerows([lower_price])
-            
+
             print(len(lower_price))
             print(len(goods_name))
-            
+
             break
     except Exception as ex:
         print(ex)
