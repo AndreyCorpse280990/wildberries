@@ -47,25 +47,20 @@ def get_html(url):
 
             find_name = soup.select('.goods-name')
             goods_name = ([name.get_text() for name in find_name])
-
-            # for n, p in zip(goods_name, lower_price):
-            # print(n)
-            # print(p)
-
+            
             path_name = 'name.csv'
             with open(path_name, 'w', encoding='utf-8') as file_name:
                 writer_name = csv.writer(file_name, delimiter=':')
                 writer_name.writerows([goods_name])
-
+                
             path_price = 'price.csv'
             with open(path_price, 'w', encoding='utf-8') as file_price:
                 writer_price = csv.writer(file_price, delimiter=';')
                 writer_price.writerows([lower_price])
-
-            print(len(lower_price))
-            print(len(goods_name))
-
             break
+        
+        return goods_name, lower_price
+
     except Exception as ex:
         print(ex)
     finally:
@@ -73,10 +68,6 @@ def get_html(url):
         driver.quit()
 
 
-def main():
+if __name__ == '__main__':
     get_html(
         url='https://www.wildberries.ru/catalog/0/search.aspx?search=hdd+3.5')
-
-
-if __name__ == '__main__':
-    main()
