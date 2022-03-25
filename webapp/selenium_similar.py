@@ -16,8 +16,11 @@ def get_html(url):
                                         ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
         driver = webdriver.Chrome(options=options,
-                                  executable_path=r"chromedriver\\"
-                                                  r"\chromedriver.exe")
+                                  executable_path=r"C:\\Users\corps\\"
+                                                  r"Desktop\Програмирование\\"
+                                                  r"Learn Python\project\\"
+                                                  r"wildberries\ChromeDriver\\"
+                                                  r"chromedriver.exe")
 
         # client settings
         stealth(driver,
@@ -41,10 +44,11 @@ def get_html(url):
             soup = bs4.BeautifulSoup(product_card.get_attribute('innerHTML'),
                                      'lxml')
 
-            # getting the text of products and price
+            # getting the text of products and price and URL
             find_price = soup.select('.lower-price')
-            lower_price = ([price.get_text().strip() for price in find_price])
-
+            lower_price = ([price.get_text().strip().replace("₽", '')
+                            for price in find_price])
+            
             find_name = soup.select('.goods-name')
             goods_name = ([name.get_text() for name in find_name])
             
@@ -57,8 +61,10 @@ def get_html(url):
             with open(path_price, 'w', encoding='utf-8') as file_price:
                 writer_price = csv.writer(file_price, delimiter=';')
                 writer_price.writerows([lower_price])
+            for n, p in zip(goods_name, lower_price):
+                print(p)
             break
-        
+            
         return goods_name, lower_price
 
     except Exception as ex:
