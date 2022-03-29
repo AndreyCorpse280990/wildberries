@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 #from config import SQLALCHEMY_DATABASE_URI
 
 app = Flask(__name__)
@@ -20,8 +21,10 @@ class User(db.Model):
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String, nullable=False) #backref=db.backref('ItemPrice', lazy=True))
+    url = db.Column(db.String, nullable=False)
     item = db.Column(db.String(200), nullable=False)
+    url = db.Column(db.String(200), unique=True)
+    item_id = relationship("ItemPrice")
 
     def __repr__(self):
         return 'Item %r' % self.name
@@ -30,8 +33,7 @@ class Item(db.Model):
 class ItemPrice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer, nullable=False)
-    url = db.Column(db.String, db.ForeignKey('item.url'), nullable=False)
     item = db.Column(db.String(200), nullable=False)
-
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
     def __repr__(self):
         return '<Category %r>' % self.name

@@ -46,25 +46,32 @@ def get_html(url):
 
             # getting the text of products and price and URL
             find_price = soup.select('.lower-price')
-            lower_price = ([price.get_text().strip().replace("₽", '')
-                            for price in find_price])
-            
+
+            # formatting spaces and the '₽' sign
+            lower_price = ([str(''.join(price.get_text().replace('₽', '')
+                                        .split())) for price in find_price])
+
             find_name = soup.select('.goods-name')
             goods_name = ([name.get_text() for name in find_name])
-            
+
+            # getting URL
+            product_divs = soup.select('.product-card__wrapper')
+            for div in product_divs:
+                print(div.find('a')['href'])
+
             path_name = 'name.csv'
             with open(path_name, 'w', encoding='utf-8') as file_name:
                 writer_name = csv.writer(file_name, delimiter=':')
                 writer_name.writerows([goods_name])
-                
+
             path_price = 'price.csv'
             with open(path_price, 'w', encoding='utf-8') as file_price:
                 writer_price = csv.writer(file_price, delimiter=';')
                 writer_price.writerows([lower_price])
-            for n, p in zip(goods_name, lower_price):
-                print(p)
+            #for n, p in zip(goods_name, low_price):
+            #    print(p)
             break
-            
+
         return goods_name, lower_price
 
     except Exception as ex:
