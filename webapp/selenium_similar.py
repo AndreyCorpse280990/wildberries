@@ -50,6 +50,8 @@ def get_html(url):
             # formatting spaces and the '₽' sign
             lower_price = ([str(''.join(price.get_text().replace('₽', '')
                                         .split())) for price in find_price])
+            # transformation in int
+            lower_price = list(map(int, lower_price))
 
             find_name = soup.select('.goods-name')
             goods_name = ([name.get_text() for name in find_name])
@@ -68,8 +70,9 @@ def get_html(url):
             with open(path_price, 'w', encoding='utf-8') as file_price:
                 writer_price = csv.writer(file_price, delimiter=';')
                 writer_price.writerows([lower_price])
-            #for n, p in zip(goods_name, low_price):
+            # for n, p in zip(goods_name, lower_price):
             #    print(p)
+            print(lower_price)
             break
 
         return goods_name, lower_price
