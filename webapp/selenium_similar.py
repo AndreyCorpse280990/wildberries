@@ -1,6 +1,7 @@
 import csv
 import bs4
 import time
+import config
 from selenium import webdriver
 from selenium_stealth import stealth
 from selenium.webdriver.common.keys import Keys
@@ -16,11 +17,7 @@ def get_html(url):
                                         ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
         driver = webdriver.Chrome(options=options,
-                                  executable_path=r"C:\\Users\corps\\"
-                                                  r"Desktop\Програмирование\\"
-                                                  r"Learn Python\project\\"
-                                                  r"wildberries\ChromeDriver\\"
-                                                  r"chromedriver.exe")
+                                  executable_path=config.DRIVER_PATH)
 
         # client settings
         stealth(driver,
@@ -58,24 +55,33 @@ def get_html(url):
 
             # getting URL
             product_divs = soup.select('.product-card__wrapper')
+            product_url = []
             for div in product_divs:
-                print(div.find('a')['href'])
+                prod_url = ([div.find('a')['href']])
+                product_url += prod_url
 
-            path_name = 'name.csv'
-            with open(path_name, 'w', encoding='utf-8') as file_name:
+            # saving csv
+            path_name = config.PATH_NAME
+            with open(path_name, 'w', encoding=config.ENCODING_SELENIUM)\
+                    as file_name:
                 writer_name = csv.writer(file_name, delimiter=':')
                 writer_name.writerows([goods_name])
 
-            path_price = 'price.csv'
-            with open(path_price, 'w', encoding='utf-8') as file_price:
-                writer_price = csv.writer(file_price, delimiter=';')
+            path_price = config.PATH_PRICE
+            with open(path_price, 'w', encoding=config.ENCODING_SELENIUM)\
+                    as file_price:
+                writer_price = csv.writer(file_price, delimiter=':')
                 writer_price.writerows([lower_price])
-            # for n, p in zip(goods_name, lower_price):
-            #    print(p)
-            print(lower_price)
+
+            path_url = config.PATH_URL
+            with open(path_url, 'w', encoding=config.ENCODING_SELENIUM)\
+                    as file_url:
+                writer_url = csv.writer(file_url, delimiter=':')
+                writer_url.writerows([product_url])
+
             break
 
-        return goods_name, lower_price
+        return goods_name, lower_price, product_url
 
     except Exception as ex:
         print(ex)
@@ -85,5 +91,4 @@ def get_html(url):
 
 
 if __name__ == '__main__':
-    get_html(
-        url='https://www.wildberries.ru/catalog/0/search.aspx?search=hdd+3.5')
+    get_html(url=config.URL_SELENIUM)

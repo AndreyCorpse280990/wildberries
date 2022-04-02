@@ -40,7 +40,6 @@ class Item(db.Model):
 class ItemPrice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer, nullable=False)
-    item = db.Column(db.String(200), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
 
     def __repr__(self):
