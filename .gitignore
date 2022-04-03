@@ -8,4 +8,16 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.idea/
+.vscode/
 config.py
+Url.csv
+test_selenium.py
+test.txt
+test.html
+price.csv
+parser.log
+name.csv
+1221.py
+webapp/name.csv
+webapp/price.csv
