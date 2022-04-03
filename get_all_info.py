@@ -6,3 +6,4 @@ from webapp.import_database import save_to_base
 app = create_app()
 with app.app_context():
     save_to_base(config.URL_SELENIUM)
+    
