@@ -36,3 +36,4 @@ class ItemPrice(db.Model):
 
     def __repr__(self):
         return f"ItemPrice {self.id}, {self.name}"
+
