@@ -1,11 +1,10 @@
 import csv
 import bs4
 import time
-from webapp import config
+import config
 from selenium import webdriver
 from selenium_stealth import stealth
 from selenium.webdriver.common.keys import Keys
-
 
 
 def get_html(url):
