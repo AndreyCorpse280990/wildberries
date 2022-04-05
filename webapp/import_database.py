@@ -15,7 +15,7 @@ def save_to_base():
     for name, price, url in zip(info[0], info[1], info[2]):
         item = Item(name=name, url=url)
         item_price = ItemPrice(price=price, name=name)
-        url_exists = Item.query.filter(Item.url == url).count()
+        url_exists = Item.query.filter(Item.url == url).first()
         if not url_exists:
             db.session.add(item)
             db.session.add(item_price)

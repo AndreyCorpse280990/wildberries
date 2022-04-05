@@ -8,10 +8,14 @@ def create_app():
     app.config.from_pyfile('config.py')
     db.init_app(app)
 
-
-    @app.route('/login')
-    def login():
-        title = 'Авторизация'
-        login_form = LoginForm()
-        return render_template('login.html', page_title=title, form=login_form)
+    #
+    # @app.route('/login')
+    # def login():
+    #     title = 'Авторизация'
+    #     login_form = LoginForm()
+    #     return render_template('login.html', page_title=title, form=login_form)
     return app
+
+
+if __name__ == "__main__":
+    create_app().run(debug=True)
