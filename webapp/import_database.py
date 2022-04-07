@@ -17,7 +17,7 @@ def save_to_base():
         item = Item(name=name, url=url)
         item_price = ItemPrice(price=price, name=name)
         url_exists = Item.query.filter(Item.url == url).first()
-        if not url_exists:
+        if not url_exists: # не работает с этим циклом хз почему.
             db.session.add(item)
             db.session.add(item_price)
             db.session.commit()
