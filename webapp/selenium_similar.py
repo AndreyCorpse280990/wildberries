@@ -7,7 +7,6 @@ from selenium_stealth import stealth
 from selenium.webdriver.common.keys import Keys
 
 
-
 def get_html(url):
     try:
         # to protect against detection
