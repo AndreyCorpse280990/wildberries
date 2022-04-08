@@ -4,8 +4,8 @@ from flask_login import LoginManager
 from webapp.selenium_similar import get_html
 from webapp.admin.views import blueprint as admin_blueprint
 from webapp.parsing.views import blueprint as parsing_blueprint
-from webapp.User.models import db, User
-from webapp.User.views import blueprint as user_blueprint
+from webapp.user.models import db, User
+from webapp.user.views import blueprint as user_blueprint
 
 from webapp.config import *
 
