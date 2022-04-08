@@ -10,12 +10,11 @@ def save_to_base():
     for name, price, url in zip(info[0], info[1], info[2]):
         item = Item(name=name, url=url)
         item_price = ItemPrice(price=price, name=name)
-        #url_exists = Item.query.filter(Item.url == url).first()
-        #if not url_exists: # не работает с этим циклом хз почему.
-        print(name, price, url)
-        # db.session.add(item)
-        # db.session.add(item_price)
-        # db.session.commit()
+        url_exists = Item.query.filter(Item.url == url).first()
+        if not url_exists: # не работает с этим циклом хз почему.
+            db.session.add(item)
+            db.session.add(item_price)
+            db.session.commit()
 
 
 if __name__ == "__main__":
