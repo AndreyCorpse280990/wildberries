@@ -1,4 +1,5 @@
-from flask import render_template, current_app, Blueprint
+from flask import render_template, Blueprint
+from webapp.parsing.models import Item, ItemPrice
 
 blueprint = Blueprint('parsing', __name__)
 
