@@ -6,7 +6,6 @@ import config
 from webapp.parsing.models import Item, ItemPrice
 
 
-
 def save_to_base():
     info = selenium_similar.get_html(url=config.URL_SELENIUM)
     for name, price, url in zip(info[0], info[1], info[2]):
@@ -15,7 +14,7 @@ def save_to_base():
 
         with app.app_context():
             url_exists = Item.query.filter(Item.url == url).first()
-            if not url_exists: # не работает с этим циклом хз почему.
+            if not url_exists:
                 db.session.add(item)
                 db.session.add(item_price)
                 db.session.commit()

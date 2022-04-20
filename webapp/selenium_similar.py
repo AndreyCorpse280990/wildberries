@@ -29,12 +29,12 @@ def get_html(url):
                 fix_hairline=True,
                 )
         driver.get(url=url)
-        time.sleep(2)
+        time.sleep(5)
         html = driver.find_element_by_class_name('nav-element__logo')
 
         while True:
             html.send_keys(Keys.END)
-            time.sleep(3)
+            time.sleep(5)
             # searching for a block of elements and getting html
             product_card = driver.find_element_by_xpath(
                 "//div[@id='catalog-content']")
