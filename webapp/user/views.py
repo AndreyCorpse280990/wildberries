@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from webapp.db import db
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import User
-from webapp.parsing.models import ItemPrice
+from webapp.parsing.models import ItemPrice, Item
 
 blueprint = Blueprint('user', __name__, url_prefix='/user')
 
@@ -48,14 +48,6 @@ def register():
     return render_template('user/registration.html', page_title=title, form=form)
 
 
-@blueprint.route('/account')
-def account():
-    if current_user.is_authenticated:
-        item = ItemPrice.query.all()
-        print(item)
-        return render_template('user/user_account.html', item=item)
-
-
 @blueprint.route('/process_reg', methods=['POST'])
 def process_reg():
     form = RegistrationForm()
@@ -80,6 +72,16 @@ def process_reg():
 def user_account():
     title = 'Личный кабинет'
     return render_template('user/user_account.html', page_title=title)
+
+
+@blueprint.route('/user_search')
+def account():
+    title = 'Результаты поиска'
+    if current_user.is_authenticated:
+        item = Item.query.all()
+        price = ItemPrice.query.all()
+        return render_template('user/user_search.html', item=item, price=price,
+                               page_title=title)
 
 
 

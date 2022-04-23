@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1> Результаты поиска </h1>
+
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Название товара</th>
+              <th scope="col">Ссылка на товар</th>
+              <th class="col">Цена</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for one_item in item %}
+          {% for one_price in price %}
+            <tr>
+              <th scope="row">{{ one_item.id }}</th>
+              <td>{{ one_item.name }}</td>
+              <td>{{ one_item.url }}</td>
+              <td>{{ one_price.price }}</td>
+            </tr>
+          </tbody>
+        {% endfor %}
+        {% endfor %}
+</table>
+
+</div>
+{% endblock %}

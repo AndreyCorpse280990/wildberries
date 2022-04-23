@@ -13,11 +13,10 @@ from webapp.config import *
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="static_dir")
     app.config.from_pyfile('config.py')
     db.init_app(app)
     migrate = Migrate(app, db)
-
 
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(parsing_blueprint)
