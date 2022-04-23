@@ -17,3 +17,4 @@ test/search_for_similar.py
 webapp/name.csv
 webapp/price.csv
 webapp.db
+.gitattributes
