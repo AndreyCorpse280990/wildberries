@@ -2,7 +2,7 @@ from flask_login import login_user, logout_user, current_user
 from flask import Blueprint, render_template, flash, redirect, url_for
 
 from webapp.db import db
-from webapp.user.forms import LoginForm, RegistrationForm
+from webapp.user.forms import LoginForm, RegistrationForm, SearchForm
 from webapp.user.models import User
 from webapp.parsing.models import ItemPrice, Item
 
@@ -74,14 +74,18 @@ def user_account():
     return render_template('user/user_account.html', page_title=title)
 
 
-@blueprint.route('/user_search')
-def account():
-    title = 'Результаты поиска'
-    if current_user.is_authenticated:
-        item = Item.query.all()
-        price = ItemPrice.query.all()
-        return render_template('user/user_search.html', item=item, price=price,
-                               page_title=title)
+# @blueprint.route('/user_search', methods=['POST', 'GET'])
+# def search():
+#     form = SearchForm()
+#     if form.validate_on_submit():
+#         entered_data = (data=form.entered_data.data)
 
+
+@blueprint.route('/result_search')
+def result_search():
+    title = 'Результаты поиска'
+    flash(SearchForm.entered_data)
+    return render_template('user/user_search.html', item=item, price=price,
+                           page_title=title)
 
 

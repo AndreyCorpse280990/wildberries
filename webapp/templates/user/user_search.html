@@ -5,8 +5,8 @@
 {% block content %}
 <div class="container mt-5">
     <h1> Результаты поиска </h1>
-
-    <table class="table">
+    <div class="table-responsive">
+    <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -16,18 +16,16 @@
             </tr>
           </thead>
           <tbody>
+
           {% for one_item in item %}
-          {% for one_price in price %}
             <tr>
               <th scope="row">{{ one_item.id }}</th>
               <td>{{ one_item.name }}</td>
               <td>{{ one_item.url }}</td>
-              <td>{{ one_price.price }}</td>
             </tr>
           </tbody>
         {% endfor %}
-        {% endfor %}
 </table>
-
+</div>
 </div>
 {% endblock %}

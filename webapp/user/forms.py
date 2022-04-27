@@ -37,3 +37,9 @@ class RegistrationForm(FlaskForm):
         user_count = User.query.filter_by(email=email.data).count()
         if user_count > 0:
             raise ValidationError('Пользователь с таким email уже зарегистрирован')
+
+
+class SearchForm(FlaskForm):
+    entered_data = StringField('Название товара', validators=[DataRequired()],
+                               render_kw={"class": "form-control"})
+    submit = SubmitField('Оправить', render_kw={"class": "btn btn-primary"})
