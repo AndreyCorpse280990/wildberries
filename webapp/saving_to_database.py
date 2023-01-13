@@ -1,12 +1,18 @@
-from flask_sqlalchemy import SQLAlchemy
+
 from flask import Flask
-from webapp import config
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import relationship
+
+
+
+
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
-app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
-db = SQLAlchemy(app)
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
+db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +28,6 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     url = db.Column(db.String(200), unique=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def __repr__(self):
         return f"Item {self.id}, {self.name}"
@@ -31,9 +36,11 @@ class Item(db.Model):
 class ItemPrice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer, nullable=False)
-    name = db.Column(db.String(200), nullable=False)
+    item = relationship('Item')
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
 
     def __repr__(self):
-        return f"ItemPrice {self.id}, {self.name}"
+        return f"ItemPrice {self.id}, {self.item}"
+
+
 

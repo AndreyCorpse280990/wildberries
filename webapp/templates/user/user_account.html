@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+{% block title %} {{ page_title }} {% endblock %}
+{% block content %}
+<div class="row">
+        <div class="col-8">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="alert alert-info" role="alert">
+                    {% for message in messages %}
+                        {{ message }}<br>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('user.user_account') }}" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.entered_data.label }}
+            {{ form.entered_data() }}
+            {{ form.submit() }}
+      </form>
+        </div>
+    </div>
+{% endblock %}
