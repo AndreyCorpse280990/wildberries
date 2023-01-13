@@ -1,7 +1,7 @@
 import csv
 import bs4
 import time
-from webapp import config
+import config
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium_stealth import stealth
