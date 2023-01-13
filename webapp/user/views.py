@@ -1,5 +1,5 @@
 from flask_login import login_user, logout_user, current_user
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 
 from webapp.db import db
 from webapp.user.forms import LoginForm, RegistrationForm, SearchForm
@@ -27,7 +27,6 @@ def process_login():
             login_user(user)
             flash('Вы вошли на сайт')
             return redirect(url_for('parsing.index'))
-
         flash('Неправильное имя пользователя или пароль')
         return redirect(url_for('user.login'))
 
@@ -68,24 +67,46 @@ def process_reg():
     return redirect(url_for('user.register'))
 
 
-@blueprint.route('/user_account')
+@blueprint.route('/user_account', methods=['POST', 'GET'])
 def user_account():
+    form = SearchForm()
     title = 'Личный кабинет'
-    return render_template('user/user_account.html', page_title=title)
+    if form.validate_on_submit():
 
+        #entered_data = request.form['entered_data']
+        #article = User(enter_data=form.entered_data.data)
+        article = form.entered_data.data
+        return article
+        # try:
+        #     db.session.add(article)
+        #     db.session.commit()
+        #     return article
+        #     #return redirect(url_for('/result_search'))
+        # except:
+        #     #return article
+        #     return "Данный товар недоступен для парсинга"
+    else:
+        return render_template('user/user_account.html', page_title=title,
+                               form=form)
+    # if search_form.validate_on_submit():
+    #     entered_data = User.query.filter(User.enter_data == search_form.entered_data.data)
+    #     db.session.add(entered_data)
+    #     db.session.commit()
+    #     flash('Подождите')
+    #     redirect(url_for('user.result_search'))
 
-# @blueprint.route('/user_search', methods=['POST', 'GET'])
-# def search():
-#     form = SearchForm()
-#     if form.validate_on_submit():
-#         entered_data = (data=form.entered_data.data)
 
 
 @blueprint.route('/result_search')
 def result_search():
     title = 'Результаты поиска'
-    flash(SearchForm.entered_data)
-    return render_template('user/user_search.html', item=item, price=price,
-                           page_title=title)
+    search_form = SearchForm()
+    item = Item.query.all()
+    price = ItemPrice.query.all()
+    return render_template('user/result_search.html', form=search_form,
+                           page_title=title, item=item, price=price)
+
+
+
 
 

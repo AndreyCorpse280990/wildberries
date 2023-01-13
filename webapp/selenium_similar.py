@@ -3,6 +3,7 @@ import bs4
 import time
 from webapp import config
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium_stealth import stealth
 from selenium.webdriver.common.keys import Keys
 
@@ -16,8 +17,8 @@ def get_html(url):
         options.add_experimental_option("excludeSwitches",
                                         ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
-        driver = webdriver.Chrome(options=options,
-                                  executable_path=config.DRIVER_PATH)
+        service = Service(config.DRIVER_PATH)
+        driver = webdriver.Chrome(service=service)
 
         # client settings
         stealth(driver,
@@ -30,7 +31,8 @@ def get_html(url):
                 )
         driver.get(url=url)
         time.sleep(5)
-        html = driver.find_element_by_class_name('nav-element__logo')
+        html = driver.find_element('header__container')
+
 
         while True:
             html.send_keys(Keys.END)
