@@ -39,10 +39,4 @@ class Client:
 if __name__=="__main__":
     parser = Client()
     parser.run()
-# def main():
-#     r = requests.get("https://www.wildberries.ru/catalog/0/search.aspx?search=iphone")
-#     soup = BeautifulSoup(r.content,'html5lib')
-#     lol = soup.find_all('div',class_='goods-name')
-#     print(lol)
-
 
