@@ -21,3 +21,5 @@ test_selenium.py
 parser.log
 test.html
 test.txt
+create_admin.py
+create_db.py

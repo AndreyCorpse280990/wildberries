@@ -33,7 +33,6 @@ def get_html(url):
         time.sleep(5)
         html = driver.find_element('header__container')
 
-
         while True:
             html.send_keys(Keys.END)
             time.sleep(5)

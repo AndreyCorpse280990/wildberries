@@ -1,11 +1,7 @@
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship
-
-
-
 
 
 app = Flask(__name__)
@@ -13,6 +9,7 @@ app.config.from_pyfile('config.py')
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
 db = SQLAlchemy()
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
